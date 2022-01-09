@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+     <bean id="userfacory" class="com.elite.spring.beans.Userfactory" scope="singleton"></bean>
+
+     <!--有参数的构造器-->
+     <bean id="user" class="com.elite.spring.beans.User" factory-bean="userfacory" factory-method="buildUser2">
+          <constructor-arg index="0"   value="elite"></constructor-arg>
+          <constructor-arg index="1"  value="1"></constructor-arg>
+     </bean>
+     <alias name="user" alias="user2"></alias>
+
+     <!--通过ref注入属性-->
+     <bean id="person" class="com.elite.spring.beans.Person">
+          <property name="user" ref="user"></property>
+     </bean>
+     <!--通过bean注入-->
+     <bean id="person2" class="com.elite.spring.beans.Person">
+          <property name="user">
+               <bean class="com.elite.spring.beans.User"></bean>
+          </property>
+     </bean>
+</beans>
